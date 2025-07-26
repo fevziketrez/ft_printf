@@ -25,10 +25,15 @@ int	ft_putstr(char *str)
 
 	i = 0;
 	res = 0;
-	while(str[i])
+	if (!str)
+		return ft_putstr("(null)");
+	else
 	{
-		res += ft_putchar(str[i]);
-		i++;
+		while(str && str[i])
+		{
+			res += ft_putchar(str[i]);
+			i++;
+		}
 	}
 	return (res);
 }
@@ -45,9 +50,7 @@ int	ft_putnbrbase(unsigned long num, char *base)
 		count += ft_putnbrbase(num % base_len, base);
 	}
 	else
-	{
 		count += ft_putchar(base[num]);
-	}
 	return count;
 }
 
@@ -80,8 +83,13 @@ int	ft_putptr(void *ptr)
 	int	count;
 
 	count = 0;
-	count += ft_putstr("0x");
-	count += ft_putnbrbase((unsigned long)ptr, "0123456789abcdef");
+	if (!ptr)
+		return ft_putstr("(nil)");
+	else
+	{
+		count += ft_putstr("0x");
+		count += ft_putnbrbase((unsigned long)ptr, "0123456789abcdef");
+	}
 	return (count);
 }
 
@@ -122,45 +130,42 @@ int	ft_printf(const char *format, ...)
 	while(*format)
 	{
 		if(*format == '%')
-		{
 			count += format_dec(*(++format), ap);
-
-			// write(1, &c, 1);
-			// write(1, &c, 1);
-			// char *mystr = va_arg(ap, char *);
-			// printf("%s", mystr);
-		}
 		else
-		{
 			count += ft_putchar(*format);
-		}
 		format++;
 	}
 	va_end(ap);
 	return count;
 }
 
-#include <stdio.h>
-int	main()
-{
-	int output_OG;
-	int output_FT;
-	// unsigned int my_num = 16;
-	// ft_printf("first arg:%d ft_\n", 0);
-	// printf("first arg:%d orji\n", 0);
-	// ft_printf("first arg:%i ft_\n", -1);
-	// printf("first arg:%i orji\n", -1);
-	// ft_printf("first arg:%p ft_\n", &my_num);
-	// printf("first arg:%p orji\n", &my_num);
+// #include <stdio.h>
+// int	main()
+// {
+// // 	int output_OG;
+// // 	int output_FT;
+// // 	// unsigned int my_num = 16;
+// // 	// ft_printf("first arg:%d ft_\n", 0);
+// // 	// printf("first arg:%d orji\n", 0);
+// // 	// ft_printf("first arg:%i ft_\n", -1);
+// // 	// printf("first arg:%i orji\n", -1);
+// // 	// ft_printf("first arg:%p ft_\n", &my_num);
+// // 	// printf("first arg:%p orji\n", &my_num);
 
-	// ft_printf("chars:%s \n %d\n", "abc", 1);
-	// printf("chars:%s \n %s\n", "abc", "def");
+// // 	// ft_printf("chars:%s \n %d\n", "abc", 1);
+// // 	// printf("chars:%s \n %s\n", "abc", "def");
 
-	ft_printf("--------------------------------MIX-------------------------------\n");
-	output_OG = printf("OG -> %%%s %%%s %%%d %clbum \t 520 in hexadecimal is %x\n", "string1", "string2", 18, 'a', 520);
-	output_FT = ft_printf("FT -> %%%s %%%s %%%d %clbum \t 520 in hexadecimal is %x\n", "string1", "string2", 18, 'a', 520);
-	printf("OUTPUT OG = %d\n", output_OG);
-	ft_printf("OUTPUT FT = %d\n", output_FT);
+// // 	ft_printf("--------------------------------MIX-------------------------------\n");
+// // 	output_OG = printf("OG -> %%%s %%%s %%%d %clbum \t 520 in hexadecimal is %x\n", "string1", "string2", 18, 'a', 520);
+// // 	output_FT = ft_printf("FT -> %%%s %%%s %%%d %clbum \t 520 in hexadecimal is %x\n", "string1", "string2", 18, 'a', 520);
+// // 	printf("OUTPUT OG = %d\n", output_OG);
+// // 	ft_printf("OUTPUT FT = %d\n", output_FT);
+// 	char *test = NULL;
+// 	printf(" NULL %s NULL \n", test);
+// 	ft_printf(" NULL %s NULL \n", test);
 
+// 	void *test2 = NULL;
+// 	printf(" NULL %p NULL \n", test2);
+// 	ft_printf(" NULL %p NULL \n", test2);
 
-}
+// }

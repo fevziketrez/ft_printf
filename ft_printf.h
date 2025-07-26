@@ -1,8 +1,17 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# ifdef __APPLE__
+#  define NUL_STR "0x0"
+#  define NUL_LEN 3
+# elif __linux__
+#  define NUL_STR "(null)"
+#  define NUL_LEN 6
+# else
+#  define NUL_STR "(nil)"
+#  define NUL_LEN 5
+# endif
 
 # include <unistd.h>
-# include <stdlib.h>
 # include <stdarg.h>
 
 int	ft_strlen(char *str);
